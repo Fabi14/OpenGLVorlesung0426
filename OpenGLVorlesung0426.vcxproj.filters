@@ -21,6 +21,9 @@
     <ClCompile Include="Engine.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="DebugOutput.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -28,6 +31,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugOutput.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

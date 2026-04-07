@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <sstream>
 #include <print>
+#include "DebugOutput.h"
 
 namespace
 {
@@ -38,7 +39,10 @@ bool Engine::init()
     //glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     //glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
+#ifdef _DEBUG
+//  create OpenGL in debug mode (required for DebugOutput)
+    glfwWindowHint(GLFW_CONTEXT_DEBUG, true);
+#endif
     /* Create a windowed mode window and its OpenGL context */
     pWindow = glfwCreateWindow(640, 480, "Hello World", nullptr, nullptr);
     if (!pWindow)
@@ -63,6 +67,10 @@ bool Engine::init()
     glClearColor(0.1f, 0.1f, 0.2f, 1.0f);
 
     std::print("{}", getGlInfoString());
+
+#ifdef _DEBUG
+    DebugOutput::enable();
+#endif
     return true;
 }
 
@@ -72,7 +80,7 @@ void Engine::run()
     while (!glfwWindowShouldClose(pWindow))
     {
         /* Render here */
-        glClear(GL_COLOR);
+        glClear(GL_COLOR_BUFFER_BIT);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(pWindow);
