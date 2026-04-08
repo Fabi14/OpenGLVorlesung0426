@@ -11,7 +11,7 @@ std::string getOpenGLInfo()
 }
 
 
-int main(void)
+int main()
 {
     /* Initialize the library */
     if (!glfwInit())
@@ -56,6 +56,11 @@ int main(void)
 
         /* Poll for and process events */
         glfwPollEvents();
+
+        if (glfwGetKey(pWindow, GLFW_KEY_ESCAPE))
+        {
+            glfwSetWindowShouldClose(pWindow, GLFW_TRUE);
+        }
     }
 
     glfwTerminate();
