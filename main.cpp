@@ -25,6 +25,9 @@ int main(void)
         return -1;
     }
 
+    glfwSetWindowPos(pWindow, 4000, 1200);
+
+    glClearColor(0.1f, 0.1f, 0.2f, 1.0f);
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(pWindow))
     {
