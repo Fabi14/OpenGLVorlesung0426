@@ -5,3 +5,7 @@
 	flowchart LR
 	IA("Vertex Specification <br> (Input Assembler)") --> VS(Vertex Shader) --> RS(Rasterization) --> FS("Fragment Shader <br> (Pixel Shader)") --> OM(Output Merger)
 ```
+
+## Links
+
+https://vcpkg.io/en/index.html
