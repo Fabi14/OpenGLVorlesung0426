@@ -6,6 +6,31 @@
 	IA("Vertex Specification <br> (Input Assembler)") --> VS(Vertex Shader) --> RS(Rasterization) --> FS("Fragment Shader <br> (Pixel Shader)") --> OM(Output Merger)
 ```
 
-## Links
+## Dependencies
+```mermaid
+    flowchart TD
 
-https://vcpkg.io/en/index.html
+    Viewer[3D-Viewer] --> Engine
+    Window --> GLFW
+    Input[User Input] --> GLFW
+
+    Viewer --> OpenGL --> glad
+
+    subgraph Engine
+        Input
+        Window
+    end
+```
+
+## Links
+### package manager:
+https://vcpkg.io
+
+### Dependencies
+https://www.glfw.org/ </br>
+https://glad.dav1d.de/ / https://vcpkg.io/en/package/glad  
+### OpenGL Dokumentation:
+https://docs.gl/
+### C++
+https://en.cppreference.com/w/ </br>
+https://godbolt.org/
