@@ -3,6 +3,9 @@
 #include <array>
 #include <glm/glm.hpp>
 #include <span>
+#include "Shader.h"
+
+
 namespace {
     auto createVertexBuffer(std::span<glm::vec2> vertices)
     {
@@ -40,8 +43,19 @@ bool Viewer3D::init()
     vertexArrayObject = createVertexBuffer(vertices);
 
     // VertexShader
+    Shader vertexShader("VertexShader.glsl", GL_VERTEX_SHADER);
     // FragmentShader
+    Shader fragmentShader("FragmentShader.glsl", GL_FRAGMENT_SHADER);
     // -> ShaderProgram
+    shaderProgram = glCreateProgram();
+    glAttachShader(shaderProgram, vertexShader.get());
+    glAttachShader(shaderProgram, fragmentShader.get());
+
+    glLinkProgram(shaderProgram);
+
+    glDetachShader(shaderProgram, vertexShader.get());
+    glDetachShader(shaderProgram, fragmentShader.get());
+
     return true;
 }
 
@@ -58,7 +72,7 @@ void Viewer3D::draw()
     // bind vertex data
     glBindVertexArray(vertexArrayObject);
     // bind shader program
-
+    glUseProgram(shaderProgram);
     //draw 
-
+    glDrawArrays(GL_TRIANGLES, 0, 3);
 }

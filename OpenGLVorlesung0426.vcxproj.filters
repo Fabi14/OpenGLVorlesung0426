@@ -27,9 +27,14 @@
     <ClCompile Include="Viewer3D.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
+    <None Include="VertexShader.glsl" />
+    <None Include="FragmentShader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -39,6 +44,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Viewer3D.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

@@ -12,5 +12,6 @@ private:
 
 	Engine m_engine;
 	GLuint vertexArrayObject{ 0 };
+	GLuint shaderProgram{ 0 };
 };
 
