@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <sstream>
 #include <print>
+#include "DebugOutput.h"
 
 namespace
 {
@@ -11,6 +12,11 @@ namespace
         std::stringstream info;
         info << "Version: " << glGetString(GL_VERSION);
         return info.str();
+    }
+
+    void glfwErrorCallback(int error_code, const char* description)
+    {
+        std::print("Error Code: {} ({})", error_code, description);
     }
 }
 
@@ -25,8 +31,14 @@ bool Engine::init()
     if (!glfwInit())
         return false;
 
+    glfwSetErrorCallback(glfwErrorCallback);
+
     //glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     //glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+
+#ifdef _DEBUG
+    glfwWindowHint(GLFW_CONTEXT_DEBUG, GLFW_TRUE);
+#endif 
 
     /* Create a windowed mode window and its OpenGL context */
     pWindow = glfwCreateWindow(640, 480, "Hello World", nullptr, nullptr);
@@ -48,6 +60,11 @@ bool Engine::init()
     glfwSetWindowPos(pWindow, 4000, 1200);
     glClearColor(0.1f, 0.1f, 0.2f, 1.0f);
     std::print("{}", getOpenGLInfo());
+
+#ifdef _DEBUG
+    DebugOutput::enable();
+#endif // _DEBUG
+
     return true;
 }
 

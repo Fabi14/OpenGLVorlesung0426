@@ -130,6 +130,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DebugOutput.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -137,6 +138,7 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DebugOutput.h" />
     <ClInclude Include="Engine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
