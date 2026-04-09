@@ -1,8 +1,8 @@
-#include "Engine.h"
+#include "Viewer3D.h"
 
 int main()
 {
-    Engine viewer3D;
+    Viewer3D viewer3D;
     if (viewer3D.init())
     {
         viewer3D.run();

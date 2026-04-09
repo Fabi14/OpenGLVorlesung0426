@@ -5,6 +5,7 @@
 #include <print>
 #include "DebugOutput.h"
 
+
 namespace
 {
     std::string getOpenGLInfo()
@@ -68,7 +69,7 @@ bool Engine::init()
     return true;
 }
 
-void Engine::run()
+void Engine::run(const std::function<void()>& draw)
 {
     if (!pWindow)
     {
@@ -79,7 +80,7 @@ void Engine::run()
     while (!glfwWindowShouldClose(pWindow))
     {
         /* Render here */
-        glClear(GL_COLOR_BUFFER_BIT);
+        draw();
 
         /* Swap front and back buffers */
         glfwSwapBuffers(pWindow);
