@@ -1,6 +1,7 @@
 #include "DebugOutput.h"
 #include <print>
 #include <glad/glad.h>
+#include "Shader.h"
 
 namespace
 {
@@ -17,8 +18,6 @@ namespace
     }
 }
 
-
-
 void DebugOutput::enable()
 {
     int flags;
@@ -33,5 +32,20 @@ void DebugOutput::enable()
     else
     {
         std::println("No GLFW_OPENGL_DEBUG_CONTEXT");
+    }
+}
+
+void DebugOutput::checkShaderCompilation(const Shader& shader)
+{
+    GLint success = 0;
+    glGetShaderiv(shader.get(), GL_COMPILE_STATUS, &success);
+    if (success == GL_FALSE)
+    {
+        int len;
+        glGetShaderiv(shader.get(), GL_INFO_LOG_LENGTH, &len);
+        std::string errorString;
+        errorString.resize(len);
+        glGetShaderInfoLog(shader.get(), len, nullptr, errorString.data());
+        std::println("Error in Shader: {}", errorString);
     }
 }

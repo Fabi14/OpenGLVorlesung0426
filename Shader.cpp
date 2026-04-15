@@ -1,6 +1,7 @@
 #include "Shader.h"
 
 #include <fstream>
+#include "DebugOutput.h"
 
 Shader::Shader(const std::filesystem::path& fileName, GLenum shaderType)
 {
@@ -18,4 +19,6 @@ Shader::Shader(const std::filesystem::path& fileName, GLenum shaderType)
 
 	glShaderSource(id, 1, &cStr, nullptr);
 	glCompileShader(id);
+
+	DebugOutput::checkShaderCompilation(*this);
 }
