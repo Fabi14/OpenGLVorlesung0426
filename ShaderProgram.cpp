@@ -2,19 +2,18 @@
 #include "Shader.h"
 
 ShaderProgram::ShaderProgram(const Shader& vertexShader, const Shader& fragmentShader) 
-    : id{ glCreateProgram() }
+    : id{ glCreateProgram(), [](GLuint id) {glDeleteProgram(id); } }
 {
-    glAttachShader(id, vertexShader.get());
-    glAttachShader(id, fragmentShader.get());
+    glAttachShader(*id, vertexShader.get());
+    glAttachShader(*id, fragmentShader.get());
 
-    glLinkProgram(id);
+    glLinkProgram(*id);
 
-    glDetachShader(id, vertexShader.get());
-    glDetachShader(id, fragmentShader.get());
-
+    glDetachShader(*id, vertexShader.get());
+    glDetachShader(*id, fragmentShader.get());
 }
 
 void ShaderProgram::bind() const
 {
-    glUseProgram(id);
+    glUseProgram(*id);
 }
