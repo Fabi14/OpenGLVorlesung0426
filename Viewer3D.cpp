@@ -27,8 +27,6 @@ namespace {
     }
 }
 
-
-
 bool Viewer3D::init()
 {
     m_engine.init();
@@ -47,14 +45,7 @@ bool Viewer3D::init()
     // FragmentShader
     Shader fragmentShader("FragmentShader.glsl", GL_FRAGMENT_SHADER);
     // -> ShaderProgram
-    shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader.get());
-    glAttachShader(shaderProgram, fragmentShader.get());
-
-    glLinkProgram(shaderProgram);
-
-    glDetachShader(shaderProgram, vertexShader.get());
-    glDetachShader(shaderProgram, fragmentShader.get());
+    m_oShaderProgram = ShaderProgram(vertexShader, fragmentShader);
 
     return true;
 }
@@ -72,7 +63,10 @@ void Viewer3D::draw()
     // bind vertex data
     glBindVertexArray(vertexArrayObject);
     // bind shader program
-    glUseProgram(shaderProgram);
+    if (m_oShaderProgram)
+    {
+        m_oShaderProgram->bind();
+    }
     //draw 
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }
