@@ -14,10 +14,20 @@ VertexBuffer::VertexBuffer(std::span<glm::vec2> vertices)
     glBindVertexArray(0);
 }
 
+VertexBuffer::VertexBuffer(std::span<glm::vec2> vertices, std::span<unsigned int> indices) 
+ : VertexBuffer(vertices)
+{
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *m_ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size_bytes(), indices.data(), GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
 void VertexBuffer::bind()
 {
     glBindVertexArray(*m_vao);
     glBindBuffer(GL_ARRAY_BUFFER, *m_vbo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *m_ebo);
 }
 
 GLuint VertexBuffer::createVao()
@@ -27,7 +37,7 @@ GLuint VertexBuffer::createVao()
     return vao;
 }
 
-GLuint VertexBuffer::createVbo()
+GLuint VertexBuffer::createBuffer()
 {
     GLuint vbo{};
     glGenBuffers(1, &vbo);
@@ -39,7 +49,7 @@ void VertexBuffer::deleteVao(GLuint id)
     glDeleteVertexArrays(1, &id);
 }
 
-void VertexBuffer::deleteVbo(GLuint id)
+void VertexBuffer::deleteBuffer(GLuint id)
 {
     glDeleteBuffers(1, &id);
 }

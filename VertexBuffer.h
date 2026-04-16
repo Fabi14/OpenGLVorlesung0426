@@ -7,16 +7,18 @@ class VertexBuffer
 {
 public:
     VertexBuffer(std::span<glm::vec2> vertices);
+    VertexBuffer(std::span<glm::vec2> vertices, std::span<unsigned int> indices);
 
     void bind();
 
 private:
     static GLuint createVao();
-    static GLuint createVbo();
+    static GLuint createBuffer();
     static void deleteVao(GLuint id);
-    static void deleteVbo(GLuint id);
+    static void deleteBuffer(GLuint id);
 
     UniqueResource m_vao{ createVao(), &deleteVao };
-    UniqueResource m_vbo{ createVbo(), &deleteVbo };
+    UniqueResource m_vbo{ createBuffer(), &deleteBuffer };
+    UniqueResource m_ebo{ createBuffer(), &deleteBuffer };
 };
 
