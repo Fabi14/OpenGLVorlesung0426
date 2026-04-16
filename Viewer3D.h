@@ -12,7 +12,9 @@ public:
 	bool init();
 	void run();
 private:
-	void draw();
+	void update(double deltaTime);
+	void handleInput(double deltaTime);
+
 
 	Engine m_engine;
 	std::optional<VertexBuffer> m_oVertexBuffer{ std::nullopt };

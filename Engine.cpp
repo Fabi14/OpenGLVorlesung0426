@@ -69,7 +69,7 @@ bool Engine::init()
     return true;
 }
 
-void Engine::run(const std::function<void()>& draw)
+void Engine::run(const std::function<void(double)>& update)
 {
     if (!pWindow)
     {
@@ -80,7 +80,10 @@ void Engine::run(const std::function<void()>& draw)
     while (!glfwWindowShouldClose(pWindow))
     {
         /* Render here */
-        draw();
+        auto now = glfwGetTime();
+        auto deltaTime = now - m_time;
+        m_time = now;
+        update(deltaTime);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(pWindow);

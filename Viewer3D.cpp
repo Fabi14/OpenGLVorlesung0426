@@ -35,15 +35,16 @@ bool Viewer3D::init()
 
 void Viewer3D::run()
 {
-    m_engine.run([this] { draw(); });
+    m_engine.run([this](double deltaTime) { update(deltaTime); });
 }
 
-void Viewer3D::draw()
+void Viewer3D::update(double deltaTime)
 {
+
     angle += 0.2f;
     auto rotation = glm::rotate(glm::radians(angle), glm::vec3{ 0.f,0.f,1.f });
-
-    auto modelMatrix = rotation * glm::scale(glm::vec3{ 0.2f,0.2f,1.f });
+    auto translation = glm::translate(glm::vec3{1.f,0.f,-1.f });
+    auto modelMatrix = rotation * glm::scale(glm::vec3{ 0.2f,0.2f,1.f }) * translation;
 
 
     glClear(GL_COLOR_BUFFER_BIT);
@@ -58,4 +59,13 @@ void Viewer3D::draw()
         //draw 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
+}
+
+void Viewer3D::handleInput(double deltaTime)
+{
+    // TODO move camera with WASD
+    //if (m_engine.getKey())
+    //{
+    //    m_camera.position += 
+    //}
 }
