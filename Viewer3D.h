@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 #include <optional>
 #include "ShaderProgram.h"
+#include "VertexBuffer.h"
 
 class Viewer3D
 {
@@ -13,7 +14,7 @@ private:
 	void draw();
 
 	Engine m_engine;
-	GLuint vertexArrayObject{ 0 };
-	std::optional<ShaderProgram> m_oShaderProgram{std::nullopt};
+	std::optional<VertexBuffer> m_oVertexBuffer{ std::nullopt };
+	std::optional<ShaderProgram> m_oShaderProgram{ std::nullopt };
 };
 

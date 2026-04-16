@@ -136,6 +136,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="UniqueResource.cpp" />
+    <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="Viewer3D.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +150,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="UniqueResource.h" />
+    <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="Viewer3D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
