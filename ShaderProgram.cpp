@@ -11,9 +11,16 @@ ShaderProgram::ShaderProgram(const Shader& vertexShader, const Shader& fragmentS
 
     glDetachShader(*id, vertexShader.get());
     glDetachShader(*id, fragmentShader.get());
+
+    m_modelTransformID = glGetUniformLocation(*id, "model");
 }
 
 void ShaderProgram::bind() const
 {
     glUseProgram(*id);
+}
+
+void ShaderProgram::setModelTransform(const glm::mat4& transform)
+{
+    glUniformMatrix4fv(m_modelTransformID, 1, GL_FALSE, &transform[0][0]);
 }

@@ -16,5 +16,6 @@ private:
 	Engine m_engine;
 	std::optional<VertexBuffer> m_oVertexBuffer{ std::nullopt };
 	std::optional<ShaderProgram> m_oShaderProgram{ std::nullopt };
+	float angle = 0.f;
 };
 

@@ -5,6 +5,8 @@
 #include <glm/glm.hpp>
 #include <span>
 #include "Shader.h"
+#define GLM_ENABLE_EXPERIMENTAL
+#include<glm/gtx/transform.hpp>
 
 bool Viewer3D::init()
 {
@@ -38,12 +40,19 @@ void Viewer3D::run()
 
 void Viewer3D::draw()
 {
+    angle += 0.2f;
+    auto rotation = glm::rotate(glm::radians(angle), glm::vec3{ 0.f,0.f,1.f });
+
+    auto modelMatrix = rotation * glm::scale(glm::vec3{ 0.2f,0.2f,1.f });
+
+
     glClear(GL_COLOR_BUFFER_BIT);
     // draw triangle
     if (m_oVertexBuffer && m_oShaderProgram)
     {
         m_oVertexBuffer->bind();
         m_oShaderProgram->bind();
+        m_oShaderProgram->setModelTransform(modelMatrix);
         //draw 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
