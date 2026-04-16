@@ -1,6 +1,6 @@
 #pragma once
 #include <filesystem>
-#include <glad/glad.h>
+#include "UniqueResource.h"
 
 class Shader
 {
@@ -9,9 +9,9 @@ public:
 
 	GLuint get() const
 	{
-		return id;
+		return *m_id;
 	}
 private:
-	GLuint id;
+	UniqueResource m_id;
 };
 

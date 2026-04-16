@@ -1,12 +1,11 @@
 #include "Shader.h"
-
+#include <glad/glad.h>
 #include <fstream>
 #include "DebugOutput.h"
 
 Shader::Shader(const std::filesystem::path& fileName, GLenum shaderType)
+	: m_id{ glCreateShader(shaderType) , [](GLuint id) { glDeleteShader(id); } }
 {
-	id = glCreateShader(shaderType);
-
 	std::ifstream file;
 	file.open(fileName);
 
@@ -17,8 +16,8 @@ Shader::Shader(const std::filesystem::path& fileName, GLenum shaderType)
 	std::string code = codeStream.str();
 	auto cStr = code.c_str();
 
-	glShaderSource(id, 1, &cStr, nullptr);
-	glCompileShader(id);
+	glShaderSource(*m_id, 1, &cStr, nullptr);
+	glCompileShader(*m_id);
 
 	DebugOutput::checkShaderCompilation(*this);
 }
