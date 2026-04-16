@@ -13,8 +13,12 @@ public:
 	void bind() const;
 
 	void setModelTransform(const glm::mat4& transform);
+	void setCameraTransform(const glm::mat4& viewTransform, const glm::mat4& projectionTransform);
+
 private:
 	UniqueResource id;
 	GLuint m_modelTransformID{};
+	GLuint m_viewTransformID{};
+	GLuint m_projectionTransformID{};
 };
 

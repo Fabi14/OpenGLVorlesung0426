@@ -53,6 +53,8 @@ void Viewer3D::draw()
         m_oVertexBuffer->bind();
         m_oShaderProgram->bind();
         m_oShaderProgram->setModelTransform(modelMatrix);
+        m_oShaderProgram->setCameraTransform(m_camera.getViewTransform(), m_camera.getProjectionTransform());
+
         //draw 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }

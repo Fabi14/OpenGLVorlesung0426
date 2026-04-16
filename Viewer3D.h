@@ -4,6 +4,7 @@
 #include <optional>
 #include "ShaderProgram.h"
 #include "VertexBuffer.h"
+#include "Camera.h"
 
 class Viewer3D
 {
@@ -17,5 +18,7 @@ private:
 	std::optional<VertexBuffer> m_oVertexBuffer{ std::nullopt };
 	std::optional<ShaderProgram> m_oShaderProgram{ std::nullopt };
 	float angle = 0.f;
+
+	Camera m_camera;
 };
 

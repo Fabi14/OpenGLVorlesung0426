@@ -3,8 +3,10 @@
 in vec2 vertex;
 
 uniform mat4 model;
+uniform mat4 viewTransform;
+uniform mat4 projectionTransform;
 
 void main()
 {
-	gl_Position = model * vec4(vertex.x,vertex.y, 0.0f, 1.0f);
+	gl_Position = projectionTransform * viewTransform * model * vec4(vertex.x,vertex.y, 0.0f, 1.0f);
 }
