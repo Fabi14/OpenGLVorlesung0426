@@ -4,7 +4,9 @@
 #include <sstream>
 #include <print>
 #include "DebugOutput.h"
-
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
 
 namespace
 {
@@ -23,6 +25,9 @@ namespace
 
 Engine::~Engine()
 {
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
     glfwTerminate();
 }
 
@@ -66,6 +71,13 @@ bool Engine::init()
     DebugOutput::enable();
 #endif // _DEBUG
 
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+
+    ImGui::StyleColorsDark();
+    ImGui_ImplGlfw_InitForOpenGL(pWindow, true);
+    ImGui_ImplOpenGL3_Init("#version 460");
+
     return true;
 }
 
@@ -75,15 +87,24 @@ void Engine::run(const std::function<void(double)>& update)
     {
         return;
     }
+    bool show_demo_window = false;
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(pWindow))
     {
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+        ImGui::ShowDemoWindow(&show_demo_window);
+        ImGui::Render();
+
         /* Render here */
         auto now = glfwGetTime();
         auto deltaTime = now - m_time;
         m_time = now;
         update(deltaTime);
+
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         /* Swap front and back buffers */
         glfwSwapBuffers(pWindow);
