@@ -30,7 +30,7 @@ Engine::~Engine()
     ImGui::DestroyContext();
     glfwTerminate();
 }
-
+ 
 bool Engine::init()
 {
     /* Initialize the library */
@@ -64,7 +64,7 @@ bool Engine::init()
     }
 
     glfwSetWindowPos(pWindow, 4000, 1200);
-    glClearColor(0.1f, 0.1f, 0.2f, 1.0f);
+
     std::print("{}", getOpenGLInfo());
 
 #ifdef _DEBUG
@@ -87,7 +87,7 @@ void Engine::run(const std::function<void(double)>& update)
     {
         return;
     }
-    bool show_demo_window = false;
+    //bool show_demo_window = false;
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(pWindow))
@@ -95,15 +95,14 @@ void Engine::run(const std::function<void(double)>& update)
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
-        ImGui::ShowDemoWindow(&show_demo_window);
-        ImGui::Render();
+        //ImGui::ShowDemoWindow(&show_demo_window);
 
         /* Render here */
         auto now = glfwGetTime();
         auto deltaTime = now - m_time;
         m_time = now;
         update(deltaTime);
-
+        ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         /* Swap front and back buffers */
@@ -117,4 +116,9 @@ void Engine::run(const std::function<void(double)>& update)
             glfwSetWindowShouldClose(pWindow, GLFW_TRUE);
         }
     }
+}
+
+bool Engine::getKey(int glfw_Key)
+{
+    return glfwGetKey(pWindow, glfw_Key);
 }
