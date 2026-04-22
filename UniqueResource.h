@@ -3,8 +3,6 @@
 #include <glad/glad.h>
 #include <memory>
 
-
-
 class Resource
 {
 public:
