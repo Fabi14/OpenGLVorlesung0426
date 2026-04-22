@@ -48,7 +48,7 @@ void Viewer3D::update(double deltaTime)
 
 
     glClear(GL_COLOR_BUFFER_BIT);
-    // draw triangle
+    // draw
     if (m_oVertexBuffer && m_oShaderProgram)
     {
         m_oVertexBuffer->bind();
