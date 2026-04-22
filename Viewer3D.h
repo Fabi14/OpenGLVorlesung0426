@@ -14,6 +14,7 @@ public:
 private:
 	void update(double deltaTime);
 	void handleInput(double deltaTime);
+	void createGui();
 
 
 	Engine m_engine;
@@ -22,5 +23,10 @@ private:
 	float angle = 0.f;
 
 	Camera m_camera;
+
+	bool show_imgui_window{ false };
+	bool m_drawSquare{ true };
+	glm::vec4 m_clearColor{ 0.f, 0.f, 0.5f, 1.f };
+	float m_rotationSpeed{ 10.f };
 };
 

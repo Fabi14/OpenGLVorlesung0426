@@ -3,10 +3,14 @@
 #include <array>
 #include <vector>
 #include <glm/glm.hpp>
+#include <GLFW/glfw3.h>
 #include <span>
 #include "Shader.h"
 #define GLM_ENABLE_EXPERIMENTAL
 #include<glm/gtx/transform.hpp>
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
 
 bool Viewer3D::init()
 {
@@ -40,16 +44,20 @@ void Viewer3D::run()
 
 void Viewer3D::update(double deltaTime)
 {
+    handleInput(deltaTime);
+    createGui();
 
-    angle += 0.2f;
+    glClearColor(m_clearColor.r, m_clearColor.g, m_clearColor.b, m_clearColor.a);
+    angle += m_rotationSpeed * static_cast<float>(deltaTime);
     auto rotation = glm::rotate(glm::radians(angle), glm::vec3{ 0.f,0.f,1.f });
     auto translation = glm::translate(glm::vec3{1.f,0.f,-1.f });
     auto modelMatrix = rotation * glm::scale(glm::vec3{ 0.2f,0.2f,1.f }) * translation;
 
 
     glClear(GL_COLOR_BUFFER_BIT);
-    // draw
-    if (m_oVertexBuffer && m_oShaderProgram)
+
+    // draw Square
+    if (m_drawSquare && m_oVertexBuffer && m_oShaderProgram)
     {
         m_oVertexBuffer->bind();
         m_oShaderProgram->bind();
@@ -63,9 +71,31 @@ void Viewer3D::update(double deltaTime)
 
 void Viewer3D::handleInput(double deltaTime)
 {
+    if (m_engine.getKey(GLFW_KEY_SPACE))
+    {
+        show_imgui_window = true;
+    }
+
     // TODO move camera with WASD
     //if (m_engine.getKey())
     //{
     //    m_camera.position += 
     //}
+}
+
+void Viewer3D::createGui()
+{
+    static float f = 0.0f;
+    static int counter = 0;
+
+    if (show_imgui_window)
+    {
+        ImGui::Begin("Hello, world!", &show_imgui_window);// Create a window called "Hello, world!" and append into it.
+
+        ImGui::Checkbox("draw square", &m_drawSquare);
+        ImGui::Text("Background");
+        ImGui::ColorEdit3("clear color", (float*)&m_clearColor); // Edit 3 floats representing a color
+        ImGui::DragFloat("Rotation speed [°/s]",&m_rotationSpeed,10.f,0.f,720.f,"%.0f");
+        ImGui::End();
+    }
 }
