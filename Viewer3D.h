@@ -24,6 +24,8 @@ private:
 
 	Camera m_camera;
 
+	glm::vec2 m_lastMousePos{  };
+
 	bool show_imgui_window{ false };
 	bool m_drawSquare{ true };
 	glm::vec4 m_clearColor{ 0.f, 0.f, 0.5f, 1.f };

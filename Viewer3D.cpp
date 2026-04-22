@@ -76,11 +76,42 @@ void Viewer3D::handleInput(double deltaTime)
         show_imgui_window = true;
     }
 
+    auto tempDir = m_camera.getDirection();
+    const float speed{ 1.f };
+    const float time = static_cast<float>(deltaTime);
     // TODO move camera with WASD
-    //if (m_engine.getKey())
-    //{
-    //    m_camera.position += 
-    //}
+    if (m_engine.getKey(GLFW_KEY_W))
+    {
+        m_camera.position += tempDir * time * speed;
+    }
+    if (m_engine.getKey(GLFW_KEY_S))
+    {
+        m_camera.position += -tempDir * time * speed;
+    }
+    if (m_engine.getKey(GLFW_KEY_A))
+    {
+        m_camera.position += -glm::cross(tempDir, m_camera.up) * time * speed;
+    }
+    if (m_engine.getKey(GLFW_KEY_D))
+    {
+        m_camera.position += glm::cross(tempDir, m_camera.up) * time * speed;
+    }
+
+    glm::vec2 newMousePos = m_engine.getMousePos();
+
+    float xOffset{ newMousePos.x - m_lastMousePos.x };
+    float yOffset{ newMousePos.y - m_lastMousePos.y };
+
+    m_lastMousePos = newMousePos;
+
+    float angularSpeed = 10.f;
+    if (m_engine.getMouseButton(1))
+    {
+        m_camera.pitch -= yOffset * time * angularSpeed;
+        m_camera.yaw -= xOffset * time * angularSpeed;
+
+        m_camera.pitch = glm::clamp(m_camera.pitch, -89.f, 89.f);
+    }
 }
 
 void Viewer3D::createGui()
@@ -96,6 +127,8 @@ void Viewer3D::createGui()
         ImGui::Text("Background");
         ImGui::ColorEdit3("clear color", (float*)&m_clearColor); // Edit 3 floats representing a color
         ImGui::DragFloat("Rotation speed [°/s]",&m_rotationSpeed,10.f,0.f,720.f,"%.0f");
+
+        ImGui::DragFloat3("Camera Position", &m_camera.position[0]);
         ImGui::End();
     }
 }

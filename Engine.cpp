@@ -122,3 +122,17 @@ bool Engine::getKey(int glfw_Key)
 {
     return glfwGetKey(pWindow, glfw_Key);
 }
+
+glm::vec2 Engine::getMousePos()
+{
+    double x{};
+    double y{};
+    glfwGetCursorPos(pWindow, &x, &y);
+
+    return { x,y };
+}
+
+bool Engine::getMouseButton(int button)
+{
+    return glfwGetMouseButton(pWindow, button) == GLFW_PRESS;
+}
