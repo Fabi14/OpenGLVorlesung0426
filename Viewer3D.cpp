@@ -62,7 +62,7 @@ void Viewer3D::update(double deltaTime)
         m_oVertexBuffer->bind();
         m_oShaderProgram->bind();
         m_oShaderProgram->setModelTransform(modelMatrix);
-        m_oShaderProgram->setCameraTransform(m_camera.getViewTransform(), m_camera.getProjectionTransform());
+        m_oShaderProgram->setCameraTransform(m_camera.getViewTransform(), m_camera.getProjectionTransform(m_engine.getWindowAspectRatio()));
 
         //draw 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

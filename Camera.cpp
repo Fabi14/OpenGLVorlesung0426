@@ -8,9 +8,9 @@ glm::mat4 Camera::getViewTransform()
     return glm::lookAt(position, position + getDirection(), up);
 }
 
-glm::mat4 Camera::getProjectionTransform()
+glm::mat4 Camera::getProjectionTransform(float aspectRatio)
 {
-    return glm::perspective(glm::radians(60.f), 640.f/480.f ,0.1f ,100.f );
+    return glm::perspective(glm::radians(60.f), aspectRatio,0.1f ,100.f );
 }
 
 glm::vec3 Camera::getDirection()

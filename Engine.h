@@ -14,6 +14,8 @@ public:
 
 	glm::vec2 getMousePos();
 	bool getMouseButton(int button);
+
+	float getWindowAspectRatio();
 private:
 	GLFWwindow* pWindow{nullptr};
 	double m_time{};

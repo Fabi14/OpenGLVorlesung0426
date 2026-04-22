@@ -21,6 +21,11 @@ namespace
     {
         std::print("Error Code: {} ({})", error_code, description);
     }
+
+    void onSize(GLFWwindow*, int width, int height)
+    {
+        glViewport(0, 0, width, height);
+    }
 }
 
 Engine::~Engine()
@@ -64,6 +69,7 @@ bool Engine::init()
     }
 
     glfwSetWindowPos(pWindow, 4000, 1200);
+    glfwSetWindowSizeCallback(pWindow, onSize);
 
     std::print("{}", getOpenGLInfo());
 
@@ -135,4 +141,12 @@ glm::vec2 Engine::getMousePos()
 bool Engine::getMouseButton(int button)
 {
     return glfwGetMouseButton(pWindow, button) == GLFW_PRESS;
+}
+
+float Engine::getWindowAspectRatio()
+{
+    int w{};
+    int h{};
+    glfwGetWindowSize(pWindow, &w, &h);
+    return static_cast<float>(w)/static_cast<float>(h);
 }
