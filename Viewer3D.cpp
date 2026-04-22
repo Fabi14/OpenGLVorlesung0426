@@ -52,21 +52,31 @@ void Viewer3D::update(double deltaTime)
     auto rotation = glm::rotate(glm::radians(angle), glm::vec3{ 0.f,0.f,1.f });
     auto translation = glm::translate(glm::vec3{1.f,0.f,-1.f });
     auto modelMatrix = rotation * glm::scale(glm::vec3{ 0.2f,0.2f,1.f }) * translation;
-
+    auto modelMatrix2 = glm::scale(glm::vec3{ 0.2f,0.2f,1.f }) * glm::translate(glm::vec3{ 0.f,0.f,-1.f });
 
     glClear(GL_COLOR_BUFFER_BIT);
 
     // draw Square
-    if (m_drawSquare && m_oVertexBuffer && m_oShaderProgram)
+    if ( m_oVertexBuffer && m_oShaderProgram)
     {
         m_oVertexBuffer->bind();
         m_oShaderProgram->bind();
-        m_oShaderProgram->setModelTransform(modelMatrix);
+        m_oShaderProgram->setWinSize(m_engine.getWindowSize());
         m_oShaderProgram->setCameraTransform(m_camera.getViewTransform(), m_camera.getProjectionTransform(m_engine.getWindowAspectRatio()));
 
         //draw 
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        if (m_drawSquare)
+        {
+            m_oShaderProgram->setModelTransform(modelMatrix);
+            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        }
+        if (m_drawSquare2)
+        {
+            m_oShaderProgram->setModelTransform(modelMatrix2);
+            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        }
     }
+
 }
 
 void Viewer3D::handleInput(double deltaTime)
@@ -124,6 +134,7 @@ void Viewer3D::createGui()
         ImGui::Begin("Hello, world!", &show_imgui_window);// Create a window called "Hello, world!" and append into it.
 
         ImGui::Checkbox("draw square", &m_drawSquare);
+        ImGui::Checkbox("draw square 2", &m_drawSquare2);
         ImGui::Text("Background");
         ImGui::ColorEdit3("clear color", (float*)&m_clearColor); // Edit 3 floats representing a color
         ImGui::DragFloat("Rotation speed [°/s]",&m_rotationSpeed,10.f,0.f,720.f,"%.0f");

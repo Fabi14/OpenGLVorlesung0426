@@ -28,6 +28,7 @@ private:
 
 	bool show_imgui_window{ false };
 	bool m_drawSquare{ true };
+	bool m_drawSquare2{ true };
 	glm::vec4 m_clearColor{ 0.f, 0.f, 0.5f, 1.f };
 	float m_rotationSpeed{ 10.f };
 };

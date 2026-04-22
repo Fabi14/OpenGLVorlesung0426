@@ -15,10 +15,12 @@ public:
 	void setModelTransform(const glm::mat4& transform);
 	void setCameraTransform(const glm::mat4& viewTransform, const glm::mat4& projectionTransform);
 
+	void setWinSize(glm::vec2 size);
 private:
 	UniqueResource id;
 	GLuint m_modelTransformID{};
 	GLuint m_viewTransformID{};
 	GLuint m_projectionTransformID{};
+	GLuint m_winSizeID{};
 };
 

@@ -84,6 +84,15 @@ bool Engine::init()
     ImGui_ImplGlfw_InitForOpenGL(pWindow, true);
     ImGui_ImplOpenGL3_Init("#version 460");
 
+
+    glCullFace(GL_BACK);
+    glFrontFace(GL_CW);
+
+    glEnable(GL_CULL_FACE);
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     return true;
 }
 
@@ -145,8 +154,14 @@ bool Engine::getMouseButton(int button)
 
 float Engine::getWindowAspectRatio()
 {
+    auto size = getWindowSize();
+    return size.x/size.y;
+}
+
+glm::vec2 Engine::getWindowSize()
+{
     int w{};
     int h{};
     glfwGetWindowSize(pWindow, &w, &h);
-    return static_cast<float>(w)/static_cast<float>(h);
+    return { static_cast<float>(w),  static_cast<float>(h) };
 }

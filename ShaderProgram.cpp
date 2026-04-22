@@ -15,6 +15,8 @@ ShaderProgram::ShaderProgram(const Shader& vertexShader, const Shader& fragmentS
     m_modelTransformID = glGetUniformLocation(*id, "model");
     m_viewTransformID = glGetUniformLocation(*id, "viewTransform");
     m_projectionTransformID = glGetUniformLocation(*id, "projectionTransform");
+
+    m_winSizeID = glGetUniformLocation(*id, "winSize");
 }
 
 void ShaderProgram::bind() const
@@ -31,4 +33,11 @@ void ShaderProgram::setCameraTransform(const glm::mat4& viewTransform, const glm
 {
     glUniformMatrix4fv(m_viewTransformID, 1, GL_FALSE, &viewTransform[0][0]);
     glUniformMatrix4fv(m_projectionTransformID, 1, GL_FALSE, &projectionTransform[0][0]);
+}
+
+void ShaderProgram::setWinSize(glm::vec2 size)
+{
+    //glUniform2fv(m_winSizeID, 2, &size[0]);
+
+    glUniform2f(m_winSizeID, size.x,size.y);
 }
