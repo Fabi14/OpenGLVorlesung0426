@@ -20,13 +20,13 @@ private:
 	Engine m_engine;
 	std::optional<VertexBuffer> m_oVertexBuffer{ std::nullopt };
 	std::optional<ShaderProgram> m_oShaderProgram{ std::nullopt };
-	float angle = 0.f;
+	float m_angleForModelTransform = 0.f;
 
 	Camera m_camera;
 
 	glm::vec2 m_lastMousePos{  };
 
-	bool show_imgui_window{ false };
+	bool m_bShowImguiWindow{ false };
 	bool m_drawSquare{ true };
 	bool m_drawSquare2{ true };
 	glm::vec4 m_clearColor{ 0.f, 0.f, 0.5f, 1.f };

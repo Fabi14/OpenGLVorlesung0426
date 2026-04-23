@@ -32,5 +32,6 @@ https://glad.dav1d.de/ / https://vcpkg.io/en/package/glad
 ### OpenGL Dokumentation:
 https://docs.gl/
 ### C++
-https://en.cppreference.com/w/ </br>
-https://godbolt.org/
+[C++ reference](https://en.cppreference.com/w/) </br>
+[C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines.html) </br>
+[Compiler Explorer](https://godbolt.org/)

@@ -48,8 +48,8 @@ void Viewer3D::update(double deltaTime)
     createGui();
 
     glClearColor(m_clearColor.r, m_clearColor.g, m_clearColor.b, m_clearColor.a);
-    angle += m_rotationSpeed * static_cast<float>(deltaTime);
-    auto rotation = glm::rotate(glm::radians(angle), glm::vec3{ 0.f,0.f,1.f });
+    m_angleForModelTransform += m_rotationSpeed * static_cast<float>(deltaTime);
+    auto rotation = glm::rotate(glm::radians(m_angleForModelTransform), glm::vec3{ 0.f,0.f,1.f });
     auto translation = glm::translate(glm::vec3{1.f,0.f,-1.f });
     auto modelMatrix = rotation * glm::scale(glm::vec3{ 0.2f,0.2f,1.f }) * translation;
     auto modelMatrix2 = glm::scale(glm::vec3{ 0.2f,0.2f,1.f }) * glm::translate(glm::vec3{ 0.f,0.f,-1.f });
@@ -83,7 +83,7 @@ void Viewer3D::handleInput(double deltaTime)
 {
     if (m_engine.getKey(GLFW_KEY_SPACE))
     {
-        show_imgui_window = true;
+        m_bShowImguiWindow = true;
     }
 
     auto tempDir = m_camera.getDirection();
@@ -129,9 +129,9 @@ void Viewer3D::createGui()
     static float f = 0.0f;
     static int counter = 0;
 
-    if (show_imgui_window)
+    if (m_bShowImguiWindow)
     {
-        ImGui::Begin("Hello, world!", &show_imgui_window);// Create a window called "Hello, world!" and append into it.
+        ImGui::Begin("Hello, world!", &m_bShowImguiWindow);// Create a window called "Hello, world!" and append into it.
 
         ImGui::Checkbox("draw square", &m_drawSquare);
         ImGui::Checkbox("draw square 2", &m_drawSquare2);

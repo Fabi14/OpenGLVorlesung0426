@@ -17,7 +17,7 @@ public:
 
 	void setWinSize(glm::vec2 size);
 private:
-	UniqueResource id;
+	UniqueResource m_id;
 	GLuint m_modelTransformID{};
 	GLuint m_viewTransformID{};
 	GLuint m_projectionTransformID{};

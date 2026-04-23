@@ -19,7 +19,7 @@ public:
 	glm::vec2 getWindowSize();
 
 private:
-	GLFWwindow* pWindow{nullptr};
+	GLFWwindow* m_pWindow{nullptr};
 	double m_time{};
 };
 

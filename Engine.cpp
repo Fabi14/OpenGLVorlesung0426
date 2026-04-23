@@ -52,15 +52,15 @@ bool Engine::init()
 #endif 
 
     /* Create a windowed mode window and its OpenGL context */
-    pWindow = glfwCreateWindow(640, 480, "Hello World", nullptr, nullptr);
-    if (!pWindow)
+    m_pWindow = glfwCreateWindow(640, 480, "Hello World", nullptr, nullptr);
+    if (!m_pWindow)
     {
         glfwTerminate();
         return false;
     }
 
     /* Make the window's context current */
-    glfwMakeContextCurrent(pWindow);
+    glfwMakeContextCurrent(m_pWindow);
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
@@ -68,8 +68,8 @@ bool Engine::init()
         return false;
     }
 
-    glfwSetWindowPos(pWindow, 4000, 1200);
-    glfwSetWindowSizeCallback(pWindow, onSize);
+    glfwSetWindowPos(m_pWindow, 4000, 1200);
+    glfwSetWindowSizeCallback(m_pWindow, onSize);
 
     std::print("{}", getOpenGLInfo());
 
@@ -81,7 +81,7 @@ bool Engine::init()
     ImGui::CreateContext();
 
     ImGui::StyleColorsDark();
-    ImGui_ImplGlfw_InitForOpenGL(pWindow, true);
+    ImGui_ImplGlfw_InitForOpenGL(m_pWindow, true);
     ImGui_ImplOpenGL3_Init("#version 460");
 
 
@@ -98,14 +98,14 @@ bool Engine::init()
 
 void Engine::run(const std::function<void(double)>& update)
 {
-    if (!pWindow)
+    if (!m_pWindow)
     {
         return;
     }
     //bool show_demo_window = false;
 
     /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(pWindow))
+    while (!glfwWindowShouldClose(m_pWindow))
     {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
@@ -121,35 +121,35 @@ void Engine::run(const std::function<void(double)>& update)
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         /* Swap front and back buffers */
-        glfwSwapBuffers(pWindow);
+        glfwSwapBuffers(m_pWindow);
 
         /* Poll for and process events */
         glfwPollEvents();
 
-        if (glfwGetKey(pWindow, GLFW_KEY_ESCAPE))
+        if (glfwGetKey(m_pWindow, GLFW_KEY_ESCAPE))
         {
-            glfwSetWindowShouldClose(pWindow, GLFW_TRUE);
+            glfwSetWindowShouldClose(m_pWindow, GLFW_TRUE);
         }
     }
 }
 
 bool Engine::getKey(int glfw_Key)
 {
-    return glfwGetKey(pWindow, glfw_Key);
+    return glfwGetKey(m_pWindow, glfw_Key);
 }
 
 glm::vec2 Engine::getMousePos()
 {
     double x{};
     double y{};
-    glfwGetCursorPos(pWindow, &x, &y);
+    glfwGetCursorPos(m_pWindow, &x, &y);
 
     return { x,y };
 }
 
 bool Engine::getMouseButton(int button)
 {
-    return glfwGetMouseButton(pWindow, button) == GLFW_PRESS;
+    return glfwGetMouseButton(m_pWindow, button) == GLFW_PRESS;
 }
 
 float Engine::getWindowAspectRatio()
@@ -162,6 +162,6 @@ glm::vec2 Engine::getWindowSize()
 {
     int w{};
     int h{};
-    glfwGetWindowSize(pWindow, &w, &h);
+    glfwGetWindowSize(m_pWindow, &w, &h);
     return { static_cast<float>(w),  static_cast<float>(h) };
 }

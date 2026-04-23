@@ -2,26 +2,26 @@
 #include "Shader.h"
 
 ShaderProgram::ShaderProgram(const Shader& vertexShader, const Shader& fragmentShader) 
-    : id{ glCreateProgram(), [](GLuint id) {glDeleteProgram(id); } }
+    : m_id{ glCreateProgram(), [](GLuint id) {glDeleteProgram(id); } }
 {
-    glAttachShader(*id, vertexShader.get());
-    glAttachShader(*id, fragmentShader.get());
+    glAttachShader(*m_id, vertexShader.get());
+    glAttachShader(*m_id, fragmentShader.get());
 
-    glLinkProgram(*id);
+    glLinkProgram(*m_id);
 
-    glDetachShader(*id, vertexShader.get());
-    glDetachShader(*id, fragmentShader.get());
+    glDetachShader(*m_id, vertexShader.get());
+    glDetachShader(*m_id, fragmentShader.get());
 
-    m_modelTransformID = glGetUniformLocation(*id, "model");
-    m_viewTransformID = glGetUniformLocation(*id, "viewTransform");
-    m_projectionTransformID = glGetUniformLocation(*id, "projectionTransform");
+    m_modelTransformID = glGetUniformLocation(*m_id, "model");
+    m_viewTransformID = glGetUniformLocation(*m_id, "viewTransform");
+    m_projectionTransformID = glGetUniformLocation(*m_id, "projectionTransform");
 
-    m_winSizeID = glGetUniformLocation(*id, "winSize");
+    m_winSizeID = glGetUniformLocation(*m_id, "winSize");
 }
 
 void ShaderProgram::bind() const
 {
-    glUseProgram(*id);
+    glUseProgram(*m_id);
 }
 
 void ShaderProgram::setModelTransform(const glm::mat4& transform)
