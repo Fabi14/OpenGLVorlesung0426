@@ -12,6 +12,8 @@ public:
 
     void bind() const;
 
+    size_t getIndexCount() const;
+
 private:
     static GLuint createVao();
     static GLuint createBuffer();
@@ -21,5 +23,7 @@ private:
     UniqueResource m_vao{ createVao(), &deleteVao };
     UniqueResource m_vbo{ createBuffer(), &deleteBuffer };
     UniqueResource m_ebo{ createBuffer(), &deleteBuffer };
+
+    size_t m_indexCount{};
 };
 

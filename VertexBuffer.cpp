@@ -20,7 +20,7 @@ VertexBuffer::VertexBuffer(std::span<Vertex> vertices)
 VertexBuffer::VertexBuffer(std::span<Vertex> vertices, std::span<Index> indices) 
  : VertexBuffer(vertices)
 {
-
+    m_indexCount = indices.size();
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *m_ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size_bytes(), indices.data(), GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -31,6 +31,11 @@ void VertexBuffer::bind() const
     glBindVertexArray(*m_vao);
     glBindBuffer(GL_ARRAY_BUFFER, *m_vbo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *m_ebo);
+}
+
+size_t VertexBuffer::getIndexCount() const
+{
+    return m_indexCount;
 }
 
 GLuint VertexBuffer::createVao()

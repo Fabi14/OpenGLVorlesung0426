@@ -86,7 +86,7 @@ bool Engine::init()
 
 
     glCullFace(GL_BACK);
-    glFrontFace(GL_CW);
+    glFrontFace(GL_CCW);
 
     glEnable(GL_CULL_FACE);
 

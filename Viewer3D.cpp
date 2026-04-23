@@ -22,12 +22,18 @@ bool Viewer3D::init()
     auto quad = Mesh::getQuad();
     m_oVertexBuffer = VertexBuffer(quad.vertices, quad.indices);
 
+    auto cube = Mesh::getCube();
+    m_oVertexBufferCube = VertexBuffer(cube.vertices, cube.indices);
+
     // VertexShader
     Shader vertexShader("VertexShader.glsl", GL_VERTEX_SHADER);
     // FragmentShader
     Shader fragmentShader("FragmentShader.glsl", GL_FRAGMENT_SHADER);
     // -> ShaderProgram
     m_oShaderProgram = ShaderProgram(vertexShader, fragmentShader);
+
+    Shader fragmentShaderPhong("FragmentShader_Phong.glsl", GL_FRAGMENT_SHADER);
+    m_oShaderProgramCube = ShaderProgram(vertexShader, fragmentShaderPhong);
 
     return true;
 }
@@ -57,19 +63,31 @@ void Viewer3D::update(double deltaTime)
         m_oVertexBuffer->bind();
         m_oShaderProgram->bind();
         m_oShaderProgram->setWinSize(m_engine.getWindowSize());
-        m_oShaderProgram->setCameraTransform(m_camera.getViewTransform(), m_camera.getProjectionTransform(m_engine.getWindowAspectRatio()));
+        m_oShaderProgram->setCameraTransform(
+            m_camera.getViewTransform(), 
+            m_camera.getProjectionTransform(m_engine.getWindowAspectRatio()),
+            m_camera.position);
 
         //draw 
         if (m_drawSquare)
         {
             m_oShaderProgram->setModelTransform(modelMatrix);
-            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+            glDrawElements(GL_TRIANGLES, m_oVertexBuffer->getIndexCount(), GL_UNSIGNED_INT, 0);
         }
         if (m_drawSquare2)
         {
             m_oShaderProgram->setModelTransform(modelMatrix2);
-            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+            glDrawElements(GL_TRIANGLES, m_oVertexBuffer->getIndexCount(), GL_UNSIGNED_INT, 0);
         }
+    }
+    if (m_oVertexBufferCube && m_oShaderProgramCube)
+    {
+        m_oVertexBufferCube->bind();
+        m_oShaderProgramCube->bind();
+        m_oShaderProgramCube->setWinSize(m_engine.getWindowSize());
+        m_oShaderProgramCube->setCameraTransform(m_camera.getViewTransform(), m_camera.getProjectionTransform(m_engine.getWindowAspectRatio()), m_camera.position);
+        m_oShaderProgramCube->setModelTransform(glm::identity<glm::mat4>());
+        glDrawElements(GL_TRIANGLES, m_oVertexBufferCube->getIndexCount(), GL_UNSIGNED_INT, 0);
     }
 
 }
@@ -82,7 +100,7 @@ void Viewer3D::handleInput(double deltaTime)
     }
 
     auto tempDir = m_camera.getDirection();
-    const float speed{ 1.f };
+    const float speed{ 5.f };
     const float time = static_cast<float>(deltaTime);
     // TODO move camera with WASD
     if (m_engine.getKey(GLFW_KEY_W))

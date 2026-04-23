@@ -17,6 +17,8 @@ ShaderProgram::ShaderProgram(const Shader& vertexShader, const Shader& fragmentS
     m_projectionTransformID = glGetUniformLocation(*m_id, "projectionTransform");
 
     m_winSizeID = glGetUniformLocation(*m_id, "winSize");
+
+    m_cameraPosID = glGetUniformLocation(*m_id, "cameraPos");
 }
 
 void ShaderProgram::bind() const
@@ -29,10 +31,11 @@ void ShaderProgram::setModelTransform(const glm::mat4& transform) const
     glUniformMatrix4fv(m_modelTransformID, 1, GL_FALSE, &transform[0][0]);
 }
 
-void ShaderProgram::setCameraTransform(const glm::mat4& viewTransform, const glm::mat4& projectionTransform) const
+void ShaderProgram::setCameraTransform(const glm::mat4& viewTransform, const glm::mat4& projectionTransform, const glm::vec3& cameraPos) const
 {
     glUniformMatrix4fv(m_viewTransformID, 1, GL_FALSE, &viewTransform[0][0]);
     glUniformMatrix4fv(m_projectionTransformID, 1, GL_FALSE, &projectionTransform[0][0]);
+    glUniform3f(m_cameraPosID, cameraPos.x, cameraPos.y, cameraPos.z);
 }
 
 void ShaderProgram::setWinSize(glm::vec2 size) const
