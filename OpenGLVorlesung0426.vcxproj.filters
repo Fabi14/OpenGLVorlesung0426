@@ -19,6 +19,9 @@
     <Filter Include="Quelldateien\imgui">
       <UniqueIdentifier>{a12b43fd-825a-410f-90a3-a05bcc5d9abf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{31800228-5d22-42ac-b2b2-28545c25558f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -57,8 +60,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
-    <None Include="VertexShader.glsl" />
-    <None Include="FragmentShader.glsl" />
+    <None Include="VertexShader.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="FragmentShader.glsl">
+      <Filter>Shader</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">

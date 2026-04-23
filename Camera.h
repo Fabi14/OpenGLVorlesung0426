@@ -4,9 +4,9 @@
 class Camera
 {
 public:
-	glm::mat4 getViewTransform();
-	glm::mat4 getProjectionTransform(float aspectRatio);
-	glm::vec3 getDirection();
+	glm::mat4 getViewTransform() const;
+	glm::mat4 getProjectionTransform(float aspectRatio) const;
+	glm::vec3 getDirection() const;
 
 	glm::vec3 position{0.f,0.f,0.f};
 	//glm::vec3 direction{ 0.f,0.f,-1.f };

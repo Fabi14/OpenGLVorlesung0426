@@ -133,12 +133,12 @@ void Engine::run(const std::function<void(double)>& update)
     }
 }
 
-bool Engine::getKey(int glfw_Key)
+bool Engine::getKey(int glfw_Key) const
 {
     return glfwGetKey(m_pWindow, glfw_Key);
 }
 
-glm::vec2 Engine::getMousePos()
+glm::vec2 Engine::getMousePos() const
 {
     double x{};
     double y{};
@@ -147,18 +147,18 @@ glm::vec2 Engine::getMousePos()
     return { x,y };
 }
 
-bool Engine::getMouseButton(int button)
+bool Engine::getMouseButton(int button) const
 {
     return glfwGetMouseButton(m_pWindow, button) == GLFW_PRESS;
 }
 
-float Engine::getWindowAspectRatio()
+float Engine::getWindowAspectRatio() const
 {
     auto size = getWindowSize();
     return size.x/size.y;
 }
 
-glm::vec2 Engine::getWindowSize()
+glm::vec2 Engine::getWindowSize() const
 {
     int w{};
     int h{};

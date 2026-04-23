@@ -24,18 +24,18 @@ void ShaderProgram::bind() const
     glUseProgram(*m_id);
 }
 
-void ShaderProgram::setModelTransform(const glm::mat4& transform)
+void ShaderProgram::setModelTransform(const glm::mat4& transform) const
 {
     glUniformMatrix4fv(m_modelTransformID, 1, GL_FALSE, &transform[0][0]);
 }
 
-void ShaderProgram::setCameraTransform(const glm::mat4& viewTransform, const glm::mat4& projectionTransform)
+void ShaderProgram::setCameraTransform(const glm::mat4& viewTransform, const glm::mat4& projectionTransform) const
 {
     glUniformMatrix4fv(m_viewTransformID, 1, GL_FALSE, &viewTransform[0][0]);
     glUniformMatrix4fv(m_projectionTransformID, 1, GL_FALSE, &projectionTransform[0][0]);
 }
 
-void ShaderProgram::setWinSize(glm::vec2 size)
+void ShaderProgram::setWinSize(glm::vec2 size) const
 {
     //glUniform2fv(m_winSizeID, 2, &size[0]);
 

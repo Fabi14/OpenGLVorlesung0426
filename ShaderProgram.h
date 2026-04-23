@@ -12,10 +12,10 @@ public:
 	ShaderProgram(const Shader& vertexShader, const Shader& fragmentShader);
 	void bind() const;
 
-	void setModelTransform(const glm::mat4& transform);
-	void setCameraTransform(const glm::mat4& viewTransform, const glm::mat4& projectionTransform);
+	void setModelTransform(const glm::mat4& transform) const;
+	void setCameraTransform(const glm::mat4& viewTransform, const glm::mat4& projectionTransform) const;
 
-	void setWinSize(glm::vec2 size);
+	void setWinSize(glm::vec2 size) const;
 private:
 	UniqueResource m_id;
 	GLuint m_modelTransformID{};

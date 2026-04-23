@@ -3,17 +3,17 @@
 #include<glm/gtx/transform.hpp>
 
 
-glm::mat4 Camera::getViewTransform()
+glm::mat4 Camera::getViewTransform() const
 {
     return glm::lookAt(position, position + getDirection(), up);
 }
 
-glm::mat4 Camera::getProjectionTransform(float aspectRatio)
+glm::mat4 Camera::getProjectionTransform(float aspectRatio) const
 {
     return glm::perspective(glm::radians(60.f), aspectRatio,0.1f ,100.f );
 }
 
-glm::vec3 Camera::getDirection()
+glm::vec3 Camera::getDirection() const
 {
     auto rotateX = glm::rotate(glm::radians(pitch), glm::vec3{ 1.f,0.f,0.f });
     auto rotateY = glm::rotate(glm::radians(yaw), glm::vec3{ 0.f ,1.f, 0.f });

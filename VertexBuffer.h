@@ -9,7 +9,7 @@ public:
     VertexBuffer(std::span<glm::vec2> vertices);
     VertexBuffer(std::span<glm::vec2> vertices, std::span<unsigned int> indices);
 
-    void bind();
+    void bind() const;
 
 private:
     static GLuint createVao();

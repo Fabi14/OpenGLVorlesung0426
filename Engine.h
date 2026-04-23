@@ -10,13 +10,13 @@ public:
 	~Engine();
 	bool init();
 	void run(const std::function<void(double)>& draw);
-	bool getKey(int glfw_Key);
+	bool getKey(int glfw_Key) const;
 
-	glm::vec2 getMousePos();
-	bool getMouseButton(int button);
+	glm::vec2 getMousePos() const;
+	bool getMouseButton(int button) const;
 
-	float getWindowAspectRatio();
-	glm::vec2 getWindowSize();
+	float getWindowAspectRatio() const;
+	glm::vec2 getWindowSize() const;
 
 private:
 	GLFWwindow* m_pWindow{nullptr};
