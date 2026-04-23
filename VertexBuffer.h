@@ -2,12 +2,13 @@
 #include "UniqueResource.h"
 #include <glm/glm.hpp>
 #include <span>
+#include "Mesh.h"
 
 class VertexBuffer
 {
 public:
-    VertexBuffer(std::span<glm::vec2> vertices);
-    VertexBuffer(std::span<glm::vec2> vertices, std::span<unsigned int> indices);
+    VertexBuffer(std::span<Vertex> vertices);
+    VertexBuffer(std::span<Vertex> vertices, std::span<Index> indices);
 
     void bind() const;
 

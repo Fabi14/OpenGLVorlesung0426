@@ -1,20 +1,23 @@
 #include "VertexBuffer.h"
 #include <glad/glad.h>
 
-VertexBuffer::VertexBuffer(std::span<glm::vec2> vertices)
+VertexBuffer::VertexBuffer(std::span<Vertex> vertices)
 {
     glBindVertexArray(*m_vao);
     glBindBuffer(GL_ARRAY_BUFFER, *m_vbo);
     glBufferData(GL_ARRAY_BUFFER, vertices.size_bytes(), vertices.data(), GL_STATIC_DRAW); 
 
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(glm::vec2), static_cast<void*>(0)); // position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), reinterpret_cast<void*>(offsetof(Vertex, position))); // position
     glEnableVertexArrayAttrib(*m_vao, 0);
+
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_TRUE, sizeof(Vertex), reinterpret_cast<void*>(offsetof(Vertex,normal))); // normal
+    glEnableVertexArrayAttrib(*m_vao, 1);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 }
 
-VertexBuffer::VertexBuffer(std::span<glm::vec2> vertices, std::span<unsigned int> indices) 
+VertexBuffer::VertexBuffer(std::span<Vertex> vertices, std::span<Index> indices) 
  : VertexBuffer(vertices)
 {
 

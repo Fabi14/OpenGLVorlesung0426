@@ -12,20 +12,15 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
+#include "Mesh.h"
+
 bool Viewer3D::init()
 {
     m_engine.init();
 
     // create vertex data
-    std::array vertices{
-        glm::vec2{ -0.5f,-0.5f },
-        glm::vec2{ 0.5f, 0.5f },
-        glm::vec2{ 0.5f, -0.5f},
-        glm::vec2{ -0.5f,0.5f },
-    };
-
-    std::vector<unsigned int> indices{ 0, 1, 2, 0, 3, 1 };
-    m_oVertexBuffer = VertexBuffer(vertices, indices);
+    auto quad = Mesh::getQuad();
+    m_oVertexBuffer = VertexBuffer(quad.vertices, quad.indices);
 
     // VertexShader
     Shader vertexShader("VertexShader.glsl", GL_VERTEX_SHADER);
