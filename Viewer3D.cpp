@@ -55,7 +55,18 @@ void Viewer3D::update(double deltaTime)
     auto modelMatrix = rotation * glm::scale(glm::vec3{ 0.2f,0.2f,1.f }) * translation;
     auto modelMatrix2 = glm::scale(glm::vec3{ 0.2f,0.2f,1.f }) * glm::translate(glm::vec3{ 0.f,0.f,-1.f });
 
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    if (m_oVertexBufferCube && m_oShaderProgramCube)
+    {
+        m_oVertexBufferCube->bind();
+        m_oShaderProgramCube->bind();
+        m_oShaderProgramCube->setWinSize(m_engine.getWindowSize());
+        m_oShaderProgramCube->setCameraTransform(m_camera.getViewTransform(), m_camera.getProjectionTransform(m_engine.getWindowAspectRatio()), m_camera.position);
+        m_oShaderProgramCube->setModelTransform(glm::identity<glm::mat4>());
+        glDrawElements(GL_TRIANGLES, m_oVertexBufferCube->getIndexCount(), GL_UNSIGNED_INT, 0);
+    }
+
 
     // draw Square
     if ( m_oVertexBuffer && m_oShaderProgram)
@@ -80,16 +91,7 @@ void Viewer3D::update(double deltaTime)
             glDrawElements(GL_TRIANGLES, m_oVertexBuffer->getIndexCount(), GL_UNSIGNED_INT, 0);
         }
     }
-    if (m_oVertexBufferCube && m_oShaderProgramCube)
-    {
-        m_oVertexBufferCube->bind();
-        m_oShaderProgramCube->bind();
-        m_oShaderProgramCube->setWinSize(m_engine.getWindowSize());
-        m_oShaderProgramCube->setCameraTransform(m_camera.getViewTransform(), m_camera.getProjectionTransform(m_engine.getWindowAspectRatio()), m_camera.position);
-        m_oShaderProgramCube->setModelTransform(glm::identity<glm::mat4>());
-        glDrawElements(GL_TRIANGLES, m_oVertexBufferCube->getIndexCount(), GL_UNSIGNED_INT, 0);
-    }
-
+    
 }
 
 void Viewer3D::handleInput(double deltaTime)
