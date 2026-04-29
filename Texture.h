@@ -1,0 +1,17 @@
+#pragma once
+#include <filesystem>
+#include "UniqueResource.h"
+
+class Texture
+{
+public:
+	Texture(const std::string& path);
+	void bind();
+
+private:
+	UniqueResource m_id{
+		[] {GLuint id; glGenTextures(1,&id); return id; }(),
+		[](GLuint id) {glDeleteTextures(1,&id); } 
+	};
+};
+
