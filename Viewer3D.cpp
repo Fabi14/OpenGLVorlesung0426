@@ -24,6 +24,7 @@ bool Viewer3D::init()
 
     auto cube = Mesh::getCube();
     m_oVertexBufferCube = VertexBuffer(cube.vertices, cube.indices);
+    m_texture = Texture("Models\\container.jpg");
 
     // VertexShader
     Shader vertexShader("VertexShader.glsl", GL_VERTEX_SHADER);
@@ -64,6 +65,12 @@ void Viewer3D::update(double deltaTime)
         m_oShaderProgramCube->setWinSize(m_engine.getWindowSize());
         m_oShaderProgramCube->setCameraTransform(m_camera.getViewTransform(), m_camera.getProjectionTransform(m_engine.getWindowAspectRatio()), m_camera.position);
         m_oShaderProgramCube->setModelTransform(glm::identity<glm::mat4>());
+
+        if (m_texture)
+        {
+            m_texture->bind();
+        }
+
         glDrawElements(GL_TRIANGLES, m_oVertexBufferCube->getIndexCount(), GL_UNSIGNED_INT, 0);
     }
 

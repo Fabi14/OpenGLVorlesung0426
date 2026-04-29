@@ -5,6 +5,7 @@
 #include "ShaderProgram.h"
 #include "VertexBuffer.h"
 #include "Camera.h"
+#include "Texture.h"
 
 class Viewer3D
 {
@@ -24,6 +25,7 @@ private:
 
 	std::optional<VertexBuffer> m_oVertexBufferCube{ std::nullopt };
 	std::optional<ShaderProgram> m_oShaderProgramCube{ std::nullopt };
+	std::optional<Texture> m_texture;
 
 	Camera m_camera;
 
