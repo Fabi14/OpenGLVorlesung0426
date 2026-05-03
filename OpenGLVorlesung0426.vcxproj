@@ -139,12 +139,14 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DebugOutput.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Image.cpp" />
     <ClCompile Include="imgui_impl_glfw.cpp" />
     <ClCompile Include="imgui_impl_opengl3.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="UniqueResource.cpp" />
@@ -155,18 +157,22 @@
     <None Include="FragmentShader.glsl" />
     <None Include="FragmentShader_Phong.glsl" />
     <None Include="README.md" />
+    <None Include="SkyboxFragmentShader.glsl" />
+    <None Include="SkyboxVertexShader.glsl" />
     <None Include="VertexShader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DebugOutput.h" />
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="Image.h" />
     <ClInclude Include="imgui_impl_glfw.h" />
     <ClInclude Include="imgui_impl_opengl3.h" />
     <ClInclude Include="imgui_impl_opengl3_loader.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="Skybox.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="UniqueResource.h" />
     <ClInclude Include="VertexBuffer.h" />

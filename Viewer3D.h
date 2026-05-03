@@ -6,6 +6,7 @@
 #include "VertexBuffer.h"
 #include "Camera.h"
 #include "Texture.h"
+#include "Skybox.h"
 
 class Viewer3D
 {
@@ -26,6 +27,7 @@ private:
 	std::optional<VertexBuffer> m_oVertexBufferCube{ std::nullopt };
 	std::optional<ShaderProgram> m_oShaderProgramCube{ std::nullopt };
 	std::optional<Texture> m_texture;
+	std::optional<Texture> m_texture2;
 
 	Camera m_camera;
 
@@ -36,5 +38,7 @@ private:
 	bool m_drawSquare2{ true };
 	glm::vec4 m_clearColor{ 0.f, 0.f, 0.5f, 1.f };
 	float m_rotationSpeed{ 10.f };
+
+	std::optional<Skybox> m_skybox;
 };
 

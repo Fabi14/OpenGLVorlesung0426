@@ -1,27 +1,6 @@
 #include "Texture.h"
-#include "stb_image.h"
-
-namespace
-{
-	struct Image
-	{
-		Image(const std::string& path)
-		{
-			int chanelsInFile;
-			buffer = stbi_load(path.c_str(), &width, &height, &chanelsInFile, 4);
-		}
-		~Image()
-		{
-			stbi_image_free(buffer);
-		}
-
-		int width;
-		int height;
-		unsigned char* buffer;
-
-	};
-}
-
+#include "Image.h"
+#include "ShaderProgram.h"
 
 Texture::Texture(const std::string& path)
 {
@@ -40,7 +19,11 @@ Texture::Texture(const std::string& path)
 	}
 }
 
-void Texture::bind()
+void Texture::bind(const ShaderProgram& shaderProgram, const std::string& uniformName, int textureUnit)
 {
+	auto uniformID = glGetUniformLocation(shaderProgram.get(), uniformName.c_str());
+	glUniform1i(uniformID, textureUnit);
+
+	glActiveTexture(GL_TEXTURE0 + textureUnit);
 	glBindTexture(GL_TEXTURE_2D, *m_id);
 }

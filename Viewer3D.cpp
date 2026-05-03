@@ -25,6 +25,7 @@ bool Viewer3D::init()
     auto cube = Mesh::getCube();
     m_oVertexBufferCube = VertexBuffer(cube.vertices, cube.indices);
     m_texture = Texture("Models\\container.jpg");
+    m_texture2 = Texture("Models\\SAELogo.png");
 
     // VertexShader
     Shader vertexShader("VertexShader.glsl", GL_VERTEX_SHADER);
@@ -35,6 +36,8 @@ bool Viewer3D::init()
 
     Shader fragmentShaderPhong("FragmentShader_Phong.glsl", GL_FRAGMENT_SHADER);
     m_oShaderProgramCube = ShaderProgram(vertexShader, fragmentShaderPhong);
+
+    m_skybox = Skybox();
 
     return true;
 }
@@ -58,6 +61,8 @@ void Viewer3D::update(double deltaTime)
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+
+
     if (m_oVertexBufferCube && m_oShaderProgramCube)
     {
         m_oVertexBufferCube->bind();
@@ -68,12 +73,22 @@ void Viewer3D::update(double deltaTime)
 
         if (m_texture)
         {
-            m_texture->bind();
+            m_texture->bind(*m_oShaderProgramCube,"baseColorTexture", 0);
+        }
+        if (m_texture2)
+        {
+            m_texture2->bind(*m_oShaderProgramCube, "baseColorTexture2", 1);
         }
 
         glDrawElements(GL_TRIANGLES, m_oVertexBufferCube->getIndexCount(), GL_UNSIGNED_INT, 0);
     }
 
+    if (m_skybox)
+    {
+        glDepthMask(GL_FALSE);
+        m_skybox->draw(m_camera, m_engine.getWindowAspectRatio());
+        glDepthMask(GL_TRUE);
+    }
 
     // draw Square
     if ( m_oVertexBuffer && m_oShaderProgram)
@@ -98,6 +113,8 @@ void Viewer3D::update(double deltaTime)
             glDrawElements(GL_TRIANGLES, m_oVertexBuffer->getIndexCount(), GL_UNSIGNED_INT, 0);
         }
     }
+
+
     
 }
 

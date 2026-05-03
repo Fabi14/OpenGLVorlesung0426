@@ -11,6 +11,7 @@ uniform vec3 lightColor = {1.,1.,1.};
 uniform vec3 cameraPos;
 
 uniform sampler2D baseColorTexture;
+uniform sampler2D baseColorTexture2;
 
 void main()
 {
@@ -28,5 +29,5 @@ void main()
 	float spec = pow(max(dot(viewDir,reflectDir),0), 64);
 	vec3 specular = specularFactor * spec * lightColor;
 
-	color = vec4((ambient + diffuse + specular) ,1.) * texture(baseColorTexture,vertexUVs );
+	color = vec4((ambient + diffuse + specular) ,1.) * texture(baseColorTexture,vertexUVs ) + texture(baseColorTexture2,vertexUVs );
 }
